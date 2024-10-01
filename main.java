@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 
-public class MainApp {
+public class main {
     public static void main(String[] args) {
 
         JFrame frame = new JFrame();
