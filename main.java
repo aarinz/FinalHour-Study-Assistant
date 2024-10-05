@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -61,12 +62,16 @@ public class main {
         studymaterials studyMaterialsPanel = new studymaterials(mainPanel); 
         checklist checklistPanel = new checklist(mainPanel);
         pomodorotimer pomodoroTimerPanel = new pomodorotimer(mainPanel);
+        DefaultListModel<task> taskListModel = new DefaultListModel<>();
+        reminder reminderPanel = new reminder(mainPanel, taskListModel);
+        
 
 
         mainPanel.add(mainContent, "main"); 
         mainPanel.add(studyMaterialsPanel, "studyMaterials"); 
         mainPanel.add(new checklist(mainPanel), "checklist");
         mainPanel.add(pomodoroTimerPanel, "pomodoroTimer");
+        mainPanel.add(reminderPanel, "reminder");
 
         materialButton.addActionListener(new ActionListener() { 
             @Override
@@ -89,6 +94,14 @@ public class main {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "pomodoroTimer"); // Show Pomodoro timer panel
+            }
+        });
+
+        reminderButton.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "reminder"); // Show Reminder panel
             }
         });
 
