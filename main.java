@@ -13,7 +13,6 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;  
 import java.awt.event.ActionListener;  
 
-
 public class main {
     public static void main(String[] args) {
 
@@ -60,8 +59,9 @@ public class main {
         mainContent.add(buttonPanel);
 
         studymaterials studyMaterialsPanel = new studymaterials(mainPanel); 
-        mainPanel.add(mainContent, "main")  ; 
+        mainPanel.add(mainContent, "main"); 
         mainPanel.add(studyMaterialsPanel, "studyMaterials"); 
+
 
         materialButton.addActionListener(new ActionListener() { 
             @Override
@@ -71,12 +71,18 @@ public class main {
             }
         });
 
+        checklistButton.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "checklist"); // Show checklist panel
+            }
+        });
+
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setTitle("FinalHour Study Assistant");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(720, 720); //size
-
-      
         
         frame.setContentPane(mainPanel); 
         ImageIcon image = new ImageIcon("FH.png");
