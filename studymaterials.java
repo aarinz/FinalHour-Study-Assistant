@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
 
-
 public class studymaterials extends JPanel {
 
     public studymaterials(JPanel mainPanel) {
@@ -53,6 +52,7 @@ public class studymaterials extends JPanel {
         addSection("Leftover Portion", uploadLeftoverButton, clearLeftoverButton);
         add(Box.createRigidArea(new Dimension(0, 50)));
         add(backButton);
+        
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,18 +61,17 @@ public class studymaterials extends JPanel {
         });
     }
 
-    
     private void styleButton(JButton button) {
-        button.setBackground(Color.WHITE);
-        button.setForeground(Color.BLACK);
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
         button.setFont(new Font("Arial", Font.PLAIN, 20));
         button.setAlignmentX(JButton.CENTER_ALIGNMENT);
     }
+
     private void addSection(String sectionTitle, JButton uploadButton, JButton clearButton) {
         JLabel sectionLabel = new JLabel(sectionTitle, JLabel.LEFT);
         sectionLabel.setForeground(Color.WHITE);
         sectionLabel.setFont(new Font("Arial", Font.PLAIN, 25));
-
         sectionLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         uploadButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         clearButton.setAlignmentX(JButton.CENTER_ALIGNMENT);

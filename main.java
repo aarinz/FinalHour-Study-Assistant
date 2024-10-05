@@ -59,10 +59,14 @@ public class main {
         mainContent.add(buttonPanel);
 
         studymaterials studyMaterialsPanel = new studymaterials(mainPanel); 
+        checklist checklistPanel = new checklist(mainPanel);
+        pomodorotimer pomodoroTimerPanel = new pomodorotimer(mainPanel);
+
+
         mainPanel.add(mainContent, "main"); 
         mainPanel.add(studyMaterialsPanel, "studyMaterials"); 
         mainPanel.add(new checklist(mainPanel), "checklist");
-
+        mainPanel.add(pomodoroTimerPanel, "pomodoroTimer");
 
         materialButton.addActionListener(new ActionListener() { 
             @Override
@@ -77,6 +81,14 @@ public class main {
             public void actionPerformed(ActionEvent e) {
                 CardLayout cl = (CardLayout) mainPanel.getLayout();
                 cl.show(mainPanel, "checklist"); // Show checklist panel
+            }
+        });
+
+        pomodoroButton.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "pomodoroTimer"); // Show Pomodoro timer panel
             }
         });
 
