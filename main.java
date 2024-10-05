@@ -61,6 +61,7 @@ public class main {
         studymaterials studyMaterialsPanel = new studymaterials(mainPanel); 
         mainPanel.add(mainContent, "main"); 
         mainPanel.add(studyMaterialsPanel, "studyMaterials"); 
+        mainPanel.add(new checklist(mainPanel), "checklist");
 
 
         materialButton.addActionListener(new ActionListener() { 
