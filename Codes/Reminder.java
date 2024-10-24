@@ -14,6 +14,9 @@ public class Reminder extends JPanel {
     private JTextField timeField; 
     private DefaultListModel<task> listModel;
 
+    // Instance variable to hold the countdown timer
+    private Timer countdownTimer;
+
     public Reminder(JPanel mainPanel, DefaultListModel<task> taskListModel) {
         this.listModel = taskListModel; 
         initializeUI(mainPanel);
@@ -50,11 +53,11 @@ public class Reminder extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy++;
-        JLabel timeLabel = new JLabel("Reminder Time (HH:mm): ");
+        JLabel timeLabel = new JLabel("Reminder Time (MM:SS): ");
         timeLabel.setForeground(Color.WHITE);
         add(timeLabel, gbc);
 
-        timeField = new JTextField("HH:mm", 5);
+        timeField = new JTextField("MM:SS", 5);
         styleTextField(timeField);
         gbc.gridx = 1;
         add(timeField, gbc);
@@ -77,16 +80,19 @@ public class Reminder extends JPanel {
                 String timeText = timeField.getText().trim();
                 
                 try {
-                    LocalTime reminderTime = LocalTime.parse(timeText, DateTimeFormatter.ofPattern("HH:mm"));
-                    task newTask = new task(taskDescription, false, reminderTime); 
-                    listModel.addElement(newTask); 
-                    scheduleReminder(newTask);
-                    taskField.setText("");
-                    timeField.setText("HH:mm");
-                    JOptionPane.showMessageDialog(null, "Reminder set for " + reminderTime);
+                    String[] timeParts = timeText.split(":");
+                    int minutes = Integer.parseInt(timeParts[0]);
+                    int seconds = Integer.parseInt(timeParts[1]);
+                    int totalSeconds = minutes * 60 + seconds;
 
+                    task newTask = new task(taskDescription, false, LocalTime.now()); 
+                    listModel.addElement(newTask); 
+
+                    startCountdown(totalSeconds, taskDescription);
+                    taskField.setText("");
+                    timeField.setText("MM:SS");
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Invalid time format. Please use HH:mm.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Invalid time format. Please use MM:SS.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -98,6 +104,32 @@ public class Reminder extends JPanel {
                 cl.show(mainPanel, "main");
             }
         });
+    }
+
+    private void startCountdown(int totalSeconds, String taskDescription) {
+        if (countdownTimer != null) {
+            countdownTimer.cancel(); // Cancel any existing timer
+        }
+
+        countdownTimer = new Timer();
+        countdownTimer.scheduleAtFixedRate(new TimerTask() {
+            int remainingTime = totalSeconds;
+
+            @Override
+            public void run() {
+                if (remainingTime <= 0) {
+                    countdownTimer.cancel(); // Stop the timer
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(null, "Reminder: " + taskDescription, "Reminder Alert", JOptionPane.INFORMATION_MESSAGE);
+                    });
+                } else {
+                    remainingTime--;
+                    int minutes = remainingTime / 60;
+                    int seconds = remainingTime % 60;
+                    System.out.println(String.format("Time remaining: %02d:%02d", minutes, seconds)); // Optional: show remaining time in console
+                }
+            }
+        }, 0, 1000); // Update every second
     }
 
     private void styleButton(JButton button) {
@@ -121,23 +153,5 @@ public class Reminder extends JPanel {
         textField.setForeground(Color.BLACK); // Set text color to black
         textField.setCaretColor(Color.BLACK); // Change caret color to black
         textField.setFont(new Font("Arial", Font.PLAIN, 16));
-    }
-
-    private void scheduleReminder(task task) {
-        Timer timer = new Timer();
-        LocalTime reminderTime = task.getReminderTime();
-        LocalTime now = LocalTime.now();
-        long delay = java.time.Duration.between(now, reminderTime).toMillis();
-
-        if (delay < 0) {
-            delay += 24 * 60 * 60 * 1000; 
-        }
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                JOptionPane.showMessageDialog(null, "Reminder: " + task.getDescription(), "Reminder", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }, delay);
     }
 }

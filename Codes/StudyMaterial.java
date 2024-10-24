@@ -1,23 +1,21 @@
 package Codes;
 
-import java.sql.Timestamp;
-
-
 public class StudyMaterial {
-    private String name;
+
+    private String fileName;
     private String filePath;
     private String section;
-    private Timestamp savedAt;
 
-    public StudyMaterial(String name, String filePath, String section, Timestamp savedAt) {
-        this.name = name;
+    // Constructor
+    public StudyMaterial(String fileName, String filePath, String section) {
+        this.fileName = fileName;
         this.filePath = filePath;
         this.section = section;
-        this.savedAt = savedAt;
     }
 
-    public String getName() {
-        return name;
+    // Getters
+    public String getFileName() {
+        return fileName;
     }
 
     public String getFilePath() {
@@ -28,7 +26,16 @@ public class StudyMaterial {
         return section;
     }
 
-    public Timestamp getSavedAt() {
-        return savedAt;
+    // Setters (if needed)
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
     }
 }

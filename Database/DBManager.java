@@ -13,9 +13,6 @@ public class DBManager {
     // Constructor to establish the database connection
     public DBManager() {
         try {
-
-             
-
             connection = DriverManager.getConnection(url, username, password);
             System.out.println("Database connected successfully.");
         } catch (SQLException e) {
@@ -62,7 +59,7 @@ public class DBManager {
     // Method to load all study materials from the database
     public ArrayList<StudyMaterial> loadAllStudyMaterials() {
         ArrayList<StudyMaterial> materials = new ArrayList<>();
-        String selectSQL = "SELECT name, file_path, section, saved_at FROM study_materials";
+        String selectSQL = "SELECT name, file_path, section FROM study_materials";  // Removed "saved_at"
 
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(selectSQL)) {
@@ -71,9 +68,9 @@ public class DBManager {
                 String name = rs.getString("name");
                 String filePath = rs.getString("file_path");
                 String section = rs.getString("section");
-                Timestamp savedAt = rs.getTimestamp("saved_at");
 
-                StudyMaterial material = new StudyMaterial(name, filePath, section, savedAt);
+                // Create StudyMaterial object without the timestamp
+                StudyMaterial material = new StudyMaterial(name, filePath, section);
                 materials.add(material);
                 System.out.println("Loaded study material: " + name);
             }

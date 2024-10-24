@@ -31,4 +31,9 @@ public class task {
     public void setReminderTime(LocalTime reminderTime) {
         this.reminderTime = reminderTime;
     }
+
+    public void setCompleted(boolean b) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setCompleted'");
+    }
 }
