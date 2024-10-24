@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Codes.Reminder;
-import Codes.Checklist;
+import Codes.checklist;
 import Codes.pomodorotimer;
 import Codes.studymaterials;
 import Codes.task;
@@ -67,7 +67,7 @@ public class main {
         mainContent.add(buttonPanel);
 
         studymaterials studyMaterialsPanel = new studymaterials(mainPanel); 
-        Checklist checklistPanel = new Checklist(mainPanel);
+        checklist checklistPanel = new checklist(mainPanel);
         pomodorotimer pomodoroTimerPanel = new pomodorotimer(mainPanel);
         DefaultListModel<task> taskListModel = new DefaultListModel<>();
         Reminder reminderPanel = new Reminder(mainPanel, taskListModel);
@@ -76,7 +76,7 @@ public class main {
 
         mainPanel.add(mainContent, "main"); 
         mainPanel.add(studyMaterialsPanel, "studyMaterials"); 
-        mainPanel.add(new Checklist(mainPanel), "checklist");
+        mainPanel.add(new checklist(mainPanel), "checklist");
         mainPanel.add(pomodoroTimerPanel, "pomodoroTimer");
         mainPanel.add(reminderPanel, "reminder");
 
