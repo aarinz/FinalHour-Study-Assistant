@@ -87,6 +87,8 @@ public class studymaterials extends JPanel {
         clearImportantButton.addActionListener(e -> clearFiles(importantFiles, importantSectionPanel));
         clearFormulaButton.addActionListener(e -> clearFiles(formulaFiles, formulaSectionPanel));
         clearLeftoverButton.addActionListener(e -> clearFiles(leftoverFiles, leftoverSectionPanel));
+
+        
     }
 
     private void styleButton(JButton button) {
